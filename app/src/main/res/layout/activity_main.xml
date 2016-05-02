@@ -45,4 +45,18 @@
             android:text="Password"
             android:id="@+id/textView2" android:layout_below="@+id/edtUsername"
             android:layout_toStartOf="@+id/edtUsername"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Preferences"
+            android:id="@+id/btnPreferences" android:layout_below="@+id/btnLogin"
+            android:layout_alignEnd="@+id/btnLogin"
+            android:onClick="gotoPreferences"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Game"
+            android:id="@+id/btnStartGame" android:layout_below="@+id/btnPreferences"
+            android:layout_alignParentEnd="true"
+            android:onClick="startGameClick"/>
 </RelativeLayout>

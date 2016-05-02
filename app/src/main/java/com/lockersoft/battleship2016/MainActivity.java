@@ -1,5 +1,6 @@
 package com.lockersoft.battleship2016;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -20,7 +21,7 @@ interface ServerRequests{
   public void ProcessResponse( String command, String response );
 }
 
-public class MainActivity extends AppCompatActivity implements ServerRequests{
+public class MainActivity extends BaseActivity implements ServerRequests{
 
   String apiKey = "&appid=a11b9eebb90f64365d39a253a845c564";
   String weatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=47.67&lon=-117.48";
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements ServerRequests{
   String password = "dljones42";
 
   Button loginButton;
+  Button userPreferences;
   EditText edtUsername;
   EditText edtPassword;
   ServerRequest sr;
@@ -44,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements ServerRequests{
     loginButton = (Button) findViewById( R.id.btnLogin );
     edtUsername = (EditText) findViewById( R.id.edtUsername );
     edtPassword = (EditText) findViewById( R.id.edtPassword );
+    userPreferences = (Button) findViewById( R.id.btnPreferences );
+    userPreferences.setEnabled( false );
+
     // VOLLEY
     RequestQueue queue = Volley.newRequestQueue( this );
     sr = new ServerRequest( this, "LOGIN", username, password, loginUrl, queue );
@@ -51,6 +56,12 @@ public class MainActivity extends AppCompatActivity implements ServerRequests{
     //  sr.setCommand( "GetUsers" );
     //   sr.setUrl( getAllUsersUrl );
     //  sr.makeRequest( "GETUSERS" );
+  }
+
+  public void gotoPreferences( View v ){
+    if( loggedIn ){
+      startActivity( new Intent( this, BattlePrefs.class ) );
+    }
   }
 
   public void clickLogin( View v ){
@@ -66,12 +77,14 @@ public class MainActivity extends AppCompatActivity implements ServerRequests{
 
     try{
       JSONObject jsonObject = new JSONObject( response );
-      User user = new User();
+      user = new User();
       user.setId( jsonObject.getInt( "id" ) );
       user.setFirst_name( jsonObject.getString( "first_name" ) );
       user.setLast_name( jsonObject.getString( "last_name" ) );
       user.setOnline( jsonObject.getBoolean( "online" ) );
       Log.i( "BattleShip", user.toString() );
+      loggedIn = true;
+      userPreferences.setEnabled( true );
     } catch( JSONException e ){
       e.printStackTrace();
     }
