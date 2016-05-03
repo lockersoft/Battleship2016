@@ -11,6 +11,6 @@ import android.support.v7.app.AppCompatActivity;
  */
 public class BaseActivity extends AppCompatActivity{
   static User user;
-  Boolean loggedIn = false;
-
+  static Boolean loggedIn = false;
+  static Integer gameId = -1;         // Set to negative to start
 }

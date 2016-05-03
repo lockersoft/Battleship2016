@@ -27,7 +27,8 @@ public class ServerRequest{
     listener = _listener;
   }
 
-  public void makeRequest( final String command ){
+  public void makeRequest( final String _command ){
+    command = _command;
     StringRequest stringRequest = new StringRequest(
         Request.Method.GET,
         url,
@@ -35,7 +36,7 @@ public class ServerRequest{
           @Override
           public void onResponse( String response ){
             //  Log.i("Battleship", response);
-            listener.ProcessResponse( command, response );
+            listener.ProcessResponse( _command, response );
           }
         },
         new Response.ErrorListener(){
@@ -60,6 +61,11 @@ public class ServerRequest{
         return headers;
       }
     };
+
+    stringRequest.setRetryPolicy( new DefaultRetryPolicy(
+        10000,    // 10 seconds
+        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT ) );
 
     queue.add( stringRequest );
   }

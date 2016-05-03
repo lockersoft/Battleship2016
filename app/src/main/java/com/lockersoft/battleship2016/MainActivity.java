@@ -28,6 +28,7 @@ public class MainActivity extends BaseActivity implements ServerRequests{
 
   String loginUrl = "http://battlegameserver.com/api/v1/login";
   String getAllUsersUrl = "http://battlegameserver.com/api/v1/all_users.json";
+  String startGameUrl = "http://battlegameserver.com/api/v1/challenge_computer.json";
 
   String username = "dave.jones@scc.spokane.edu";
   String password = "dljones42";
@@ -72,6 +73,22 @@ public class MainActivity extends BaseActivity implements ServerRequests{
     sr.makeRequest( "LOGIN" );
   }
 
+  public void startGameClick( View v ){
+    sr.setUrl( startGameUrl );
+    sr.makeRequest( "STARTGAME" );
+  }
+
+  private void processStartGame( String response ){
+    try{
+      JSONObject jsonObject = new JSONObject( response );
+      gameId = jsonObject.getInt( "game_id" );
+      // Switch to Game view
+      startActivity( new Intent( this, Game.class ) );
+    } catch( JSONException e ){
+      e.printStackTrace();
+    }
+  }
+
   private void processLogin( String response ){
     // Parse into an JSON Object
 
@@ -104,6 +121,7 @@ public class MainActivity extends BaseActivity implements ServerRequests{
 
       case "STARTGAME":
         Log.i( "BattleShip", "STARTGAME --- " + response );
+        processStartGame( response );
         break;
 
       default:
