@@ -21,23 +21,18 @@ interface ServerRequests{
   public void ProcessResponse( String command, String response );
 }
 
-public class MainActivity extends BaseActivity implements ServerRequests{
+public class MainActivity extends BaseActivity implements ServerRequests {
 
-  String apiKey = "&appid=a11b9eebb90f64365d39a253a845c564";
-  String weatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=47.67&lon=-117.48";
-
-  String loginUrl = "http://battlegameserver.com/api/v1/login";
-  String getAllUsersUrl = "http://battlegameserver.com/api/v1/all_users.json";
-  String startGameUrl = "http://battlegameserver.com/api/v1/challenge_computer.json";
+//  String apiKey = "&appid=a11b9eebb90f64365d39a253a845c564";
+//  String weatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=47.67&lon=-117.48";
 
   String username = "dave.jones@scc.spokane.edu";
   String password = "dljones42";
 
   Button loginButton;
-  Button userPreferences;
+  static Button userPreferences;
   EditText edtUsername;
   EditText edtPassword;
-  ServerRequest sr;
 
   @Override
   protected void onCreate( Bundle savedInstanceState ){
@@ -78,7 +73,7 @@ public class MainActivity extends BaseActivity implements ServerRequests{
     sr.makeRequest( "STARTGAME" );
   }
 
-  private void processStartGame( String response ){
+  public void processStartGame( String response ){
     try{
       JSONObject jsonObject = new JSONObject( response );
       gameId = jsonObject.getInt( "game_id" );
@@ -89,7 +84,7 @@ public class MainActivity extends BaseActivity implements ServerRequests{
     }
   }
 
-  private void processLogin( String response ){
+  public void processLogin( String response ){
     // Parse into an JSON Object
 
     try{
@@ -124,8 +119,14 @@ public class MainActivity extends BaseActivity implements ServerRequests{
         processStartGame( response );
         break;
 
+      case "GETSHIPS" :
+        Log.i( "BattleShip", "GETSHIPS --- " + response );
+        Game.processGetShips( getApplicationContext(), response );
+        break;
+
       default:
         break;
     }
   }
+
 }
