@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.logging.SocketHandler;
 
 /**
  * Created by Dave.Jones on 5/3/2016.
@@ -25,6 +26,7 @@ public class Game extends BaseActivity{
   static String[] shipsArray;
   static ArrayAdapter<String> shipsSpinnerArrayAdapter;
   static Spinner shipSpinner;
+  static Spinner rowSpinner;
 
   @Override
   protected void onCreate( Bundle savedInstanceState ){
@@ -32,11 +34,24 @@ public class Game extends BaseActivity{
     setContentView( R.layout.game );
     txtGameID = (TextView) findViewById( R.id.txtGameID );
     shipSpinner = (Spinner)findViewById(R.id.spinnerAddShips);
+    rowSpinner = (Spinner)findViewById(R.id.spinnerAddShips);
 
     shipSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Log.i( "BATTLESHIP", shipSpinner.getSelectedItem().toString());
+      }
+
+      @Override
+      public void onNothingSelected(AdapterView<?> parent) {
+        // sometimes you need nothing here
+      }
+    });
+
+    rowSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+      @Override
+      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Log.i( "BATTLESHIP", rowSpinner.getSelectedItem().toString());
       }
 
       @Override
@@ -79,6 +94,8 @@ public class Game extends BaseActivity{
         shipsSpinnerArrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, shipsArray);
         shipsSpinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         shipSpinner.setAdapter( shipsSpinnerArrayAdapter );
+        shipSpinner.setSelection(1, true);
+
       }
     } catch( JSONException e ){
       e.printStackTrace();

@@ -29,10 +29,9 @@ public class MainActivity extends BaseActivity implements ServerRequests {
   String username = "dave.jones@scc.spokane.edu";
   String password = "dljones42";
 
-  Button loginButton;
+  Button loginButton, btnStartGame, startExistingGame;
   static Button userPreferences;
-  EditText edtUsername;
-  EditText edtPassword;
+  EditText edtUsername, edtPassword, edtGameID;
 
   @Override
   protected void onCreate( Bundle savedInstanceState ){
@@ -40,10 +39,15 @@ public class MainActivity extends BaseActivity implements ServerRequests {
     setContentView( R.layout.activity_main );
 
     loginButton = (Button) findViewById( R.id.btnLogin );
+    btnStartGame = (Button) findViewById( R.id.btnStartGame );
+    startExistingGame = (Button) findViewById( R.id.btnStartExisting );
     edtUsername = (EditText) findViewById( R.id.edtUsername );
     edtPassword = (EditText) findViewById( R.id.edtPassword );
+    edtGameID = (EditText) findViewById( R.id.edtGameID );
     userPreferences = (Button) findViewById( R.id.btnPreferences );
     userPreferences.setEnabled( false );
+    startExistingGame.setEnabled( false );
+    btnStartGame.setEnabled( false );
 
     // VOLLEY
     RequestQueue queue = Volley.newRequestQueue( this );
@@ -72,6 +76,10 @@ public class MainActivity extends BaseActivity implements ServerRequests {
     sr.setUrl( startGameUrl );
     sr.makeRequest( "STARTGAME" );
   }
+  public void startExistingGameClick( View v ){
+    gameId = Integer.valueOf(edtGameID.getText().toString());
+    startActivity( new Intent( this, Game.class ) );
+  }
 
   public void processStartGame( String response ){
     try{
@@ -97,6 +105,8 @@ public class MainActivity extends BaseActivity implements ServerRequests {
       Log.i( "BattleShip", user.toString() );
       loggedIn = true;
       userPreferences.setEnabled( true );
+      startExistingGame.setEnabled( true );
+      btnStartGame.setEnabled( true );
     } catch( JSONException e ){
       e.printStackTrace();
     }

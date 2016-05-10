@@ -49,14 +49,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="User Preferences"
-            android:id="@+id/btnPreferences" android:layout_below="@+id/btnLogin"
-            android:layout_alignEnd="@+id/btnLogin"
-            android:onClick="gotoPreferences"/>
+            android:id="@+id/btnPreferences"
+        android:onClick="gotoPreferences"
+        android:layout_below="@+id/edtPassword"
+        android:layout_toStartOf="@+id/edtPassword" />
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Game"
-            android:id="@+id/btnStartGame" android:layout_below="@+id/btnPreferences"
-            android:layout_alignParentEnd="true"
-            android:onClick="startGameClick"/>
+            android:id="@+id/btnStartGame"
+        android:onClick="startGameClick"
+        android:layout_below="@+id/btnPreferences"
+        android:layout_alignStart="@+id/btnPreferences"
+        android:layout_marginTop="64dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Game ID:"
+        android:id="@+id/textView7"
+        android:layout_alignBottom="@+id/btnStartExisting"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/edtGameID"
+        android:layout_alignTop="@+id/textView7"
+        android:layout_toEndOf="@+id/textView7" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Existing"
+        android:id="@+id/btnStartExisting"
+        android:onClick="startExistingGameClick"
+        android:layout_below="@+id/btnPreferences"
+        android:layout_alignStart="@+id/btnPreferences" />
 </RelativeLayout>
