@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import org.json.JSONException;
@@ -27,6 +28,8 @@ public class Game extends BaseActivity{
   static ArrayAdapter<String> shipsSpinnerArrayAdapter;
   static Spinner shipSpinner;
   static Spinner rowSpinner;
+  static Spinner colSpinner;
+  Button btnAddShip;
 
   @Override
   protected void onCreate( Bundle savedInstanceState ){
@@ -34,7 +37,9 @@ public class Game extends BaseActivity{
     setContentView( R.layout.game );
     txtGameID = (TextView) findViewById( R.id.txtGameID );
     shipSpinner = (Spinner)findViewById(R.id.spinnerAddShips);
-    rowSpinner = (Spinner)findViewById(R.id.spinnerAddShips);
+    rowSpinner = (Spinner)findViewById(R.id.spinnerAddRow);
+    colSpinner = (Spinner)findViewById(R.id.spinnerAddCols);
+    btnAddShip = (Button)findViewById(R.id.btnAddShip);
 
     shipSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       @Override
@@ -64,6 +69,19 @@ public class Game extends BaseActivity{
     SetupGame();
   }
 
+  public void addShipOnClick( View v ){
+    String shipName = (String)shipSpinner.getSelectedItem();
+    String col = (String)colSpinner.getSelectedItem();
+    String row = (String)rowSpinner.getSelectedItem();
+    String direction = "4";   // South
+
+    // api/v1/game/:id/add_ship/:ship/:row/:col/:direction.json
+    String addShip = addShipUrl + "game/" + gameId + "/add_ship/" + shipName + "/" + row + "/" + col + "/" + direction + ".json";
+    Log.i( "BATTLESHIP", addShip );
+//    sr.setUrl( addShip );
+//    sr.makeRequest( "ADDSHIP" );
+  }
+
   private void SetupGame(){
 
     // Get the ships and put into a spinner
@@ -86,7 +104,7 @@ public class Game extends BaseActivity{
         String key = (String)iter.next();
         Integer value = ships.getInt( key );
         Log.i( "BATTLESHIP", key + ":" + value);
-        shipsMap.put( key + "(" + value + ")", value);
+        shipsMap.put( key, value);
         int size = shipsMap.keySet().size();
         shipsArray = new String[size];
         shipsArray = shipsMap.keySet().toArray( new String[0] );
@@ -94,7 +112,7 @@ public class Game extends BaseActivity{
         shipsSpinnerArrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, shipsArray);
         shipsSpinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         shipSpinner.setAdapter( shipsSpinnerArrayAdapter );
-        shipSpinner.setSelection(1, true);
+//        shipSpinner.setSelection(1, true);
 
       }
     } catch( JSONException e ){

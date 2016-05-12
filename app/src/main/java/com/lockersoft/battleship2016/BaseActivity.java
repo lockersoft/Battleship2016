@@ -22,4 +22,5 @@ public class BaseActivity extends AppCompatActivity  {
   static String loginUrl = "http://battlegameserver.com/api/v1/login";
   static String getAllUsersUrl = "http://battlegameserver.com/api/v1/all_users.json";
   static String startGameUrl = "http://battlegameserver.com/api/v1/challenge_computer.json";
+  static String addShipUrl = "http://battlegameserver.com/api/v1/";
 }
