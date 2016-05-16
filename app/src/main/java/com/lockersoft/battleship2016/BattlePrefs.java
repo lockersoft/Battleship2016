@@ -5,15 +5,16 @@ import android.os.Bundle;
 import android.widget.EditText;
 
 /**
+ * Project: Battleship2016
  * Created by Dave.Jones on 5/2/2016.
  */
-public class BattlePrefs extends BaseActivity{
+public class BattlePrefs extends BaseActivity {
 
   EditText edtFirstName;
   EditText edtLastName;
 
   @Override
-  protected void onCreate( Bundle savedInstanceState ){
+  protected void onCreate( Bundle savedInstanceState ) {
     super.onCreate( savedInstanceState );
     setContentView( R.layout.battleprefs );
     edtFirstName = (EditText) findViewById( R.id.edtFirstName );

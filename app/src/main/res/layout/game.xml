@@ -1,58 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Setup Game Board"
-            android:id="@+id/textView6" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="ID: "
-            android:id="@+id/txtGameID" android:layout_alignParentTop="true" android:layout_alignParentEnd="true"/>
-
-    <Spinner
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Setup Game Board"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/txtGameID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="ID: "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Spinner
         android:id="@+id/spinnerAddShips"
-        android:layout_below="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:spinnerMode="dropdown"
-        android:layout_toStartOf="@+id/textView6"
-        android:background="#799ce6"/>
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerAddRow"
         android:layout_below="@+id/textView6"
-        android:spinnerMode="dropdown"
-        android:entries="@array/rows"
-        android:layout_toEndOf="@+id/spinnerAddShips"/>
+        android:layout_toStartOf="@+id/textView6"
+        android:background="#799ce6"
+        android:spinnerMode="dropdown" />
 
     <Spinner
+        android:id="@+id/spinnerAddRow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinnerAddCols"
         android:layout_below="@+id/textView6"
         android:layout_toEndOf="@+id/spinnerAddShips"
+        android:entries="@array/rows"
+        android:spinnerMode="dropdown" />
+
+    <Spinner
+        android:id="@+id/spinnerAddCols"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView6"
         android:layout_marginStart="138dp"
-        android:spinnerMode="dropdown"
+        android:layout_toEndOf="@+id/spinnerAddShips"
         android:entries="@array/columns"
-        android:focusable="false"/>
+        android:focusable="false"
+        android:spinnerMode="dropdown" />
 
     <Button
+        android:id="@+id/btnAddShip"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Ship"
-        android:id="@+id/btnAddShip"
-        android:layout_below="@+id/spinnerAddRow"
         android:layout_alignEnd="@+id/spinnerAddCols"
-        android:onClick="addShipOnClick"/>
+        android:layout_below="@+id/spinnerAddRow"
+        android:onClick="addShipOnClick"
+        android:text="Add Ship" />
+
+
 </RelativeLayout>

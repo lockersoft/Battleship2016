@@ -5,14 +5,14 @@ import android.util.Log;
 
 /**
  * Created by Dave.Jones on 5/2/2016.
- * <p>
+ * <p/>
  * AppcompatActivity
  * BaseActivity
  * MyActivity
  */
 
 
-public class BaseActivity extends AppCompatActivity  {
+public class BaseActivity extends AppCompatActivity {
   static User user;
   static Boolean loggedIn = false;
   static Integer gameId = -1;         // Set to negative to start

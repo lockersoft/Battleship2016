@@ -8,17 +8,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
-interface ServerRequests{
-  public void ProcessResponse( String command, String response );
+interface ServerRequests {
+  void ProcessResponse( String command, String response );
 }
 
 public class MainActivity extends BaseActivity implements ServerRequests {
@@ -34,7 +36,7 @@ public class MainActivity extends BaseActivity implements ServerRequests {
   EditText edtUsername, edtPassword, edtGameID;
 
   @Override
-  protected void onCreate( Bundle savedInstanceState ){
+  protected void onCreate( Bundle savedInstanceState ) {
     super.onCreate( savedInstanceState );
     setContentView( R.layout.activity_main );
 
@@ -45,7 +47,9 @@ public class MainActivity extends BaseActivity implements ServerRequests {
     edtPassword = (EditText) findViewById( R.id.edtPassword );
     edtGameID = (EditText) findViewById( R.id.edtGameID );
     userPreferences = (Button) findViewById( R.id.btnPreferences );
-    userPreferences.setEnabled( false );
+    if( userPreferences != null ) {
+      userPreferences.setEnabled( false );
+    }
     startExistingGame.setEnabled( false );
     btnStartGame.setEnabled( false );
 
@@ -58,13 +62,13 @@ public class MainActivity extends BaseActivity implements ServerRequests {
     //  sr.makeRequest( "GETUSERS" );
   }
 
-  public void gotoPreferences( View v ){
-    if( loggedIn ){
+  public void gotoPreferences( View v ) {
+    if( loggedIn ) {
       startActivity( new Intent( this, BattlePrefs.class ) );
     }
   }
 
-  public void clickLogin( View v ){
+  public void clickLogin( View v ) {
     password = edtPassword.getText().toString();
     username = edtUsername.getText().toString();
     sr.setUsername( username );
@@ -72,30 +76,31 @@ public class MainActivity extends BaseActivity implements ServerRequests {
     sr.makeRequest( "LOGIN" );
   }
 
-  public void startGameClick( View v ){
+  public void startGameClick( View v ) {
     sr.setUrl( startGameUrl );
     sr.makeRequest( "STARTGAME" );
   }
-  public void startExistingGameClick( View v ){
-    gameId = Integer.valueOf(edtGameID.getText().toString());
+
+  public void startExistingGameClick( View v ) {
+    gameId = Integer.valueOf( edtGameID.getText().toString() );
     startActivity( new Intent( this, Game.class ) );
   }
 
-  public void processStartGame( String response ){
-    try{
+  public void processStartGame( String response ) {
+    try {
       JSONObject jsonObject = new JSONObject( response );
       gameId = jsonObject.getInt( "game_id" );
       // Switch to Game view
       startActivity( new Intent( this, Game.class ) );
-    } catch( JSONException e ){
+    } catch( JSONException e ) {
       e.printStackTrace();
     }
   }
 
-  public void processLogin( String response ){
+  public void processLogin( String response ) {
     // Parse into an JSON Object
 
-    try{
+    try {
       JSONObject jsonObject = new JSONObject( response );
       user = new User();
       user.setId( jsonObject.getInt( "id" ) );
@@ -107,14 +112,14 @@ public class MainActivity extends BaseActivity implements ServerRequests {
       userPreferences.setEnabled( true );
       startExistingGame.setEnabled( true );
       btnStartGame.setEnabled( true );
-    } catch( JSONException e ){
+    } catch( JSONException e ) {
       e.printStackTrace();
     }
   }
 
   @Override
-  public void ProcessResponse( String command, String response ){
-    switch( command ){
+  public void ProcessResponse( String command, String response ) {
+    switch( command ) {
       case "LOGIN":
         Log.i( "BattleShip", "LOGIN --- " + response );
         processLogin( response );
@@ -129,7 +134,7 @@ public class MainActivity extends BaseActivity implements ServerRequests {
         processStartGame( response );
         break;
 
-      case "GETSHIPS" :
+      case "GETSHIPS":
         Log.i( "BattleShip", "GETSHIPS --- " + response );
         Game.processGetShips( getApplicationContext(), response );
         break;
