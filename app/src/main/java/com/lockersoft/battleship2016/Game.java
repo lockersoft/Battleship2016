@@ -71,6 +71,9 @@ public class Game extends BaseActivity {
     SetupGame();
   }
 
+  /**
+   * @param v
+   */
   public void addShipOnClick( View v ) {
     String shipName = (String) shipSpinner.getSelectedItem();
     String col = (String) colSpinner.getSelectedItem();
@@ -85,7 +88,6 @@ public class Game extends BaseActivity {
   }
 
   private void SetupGame() {
-
     // Get the ships and put into a spinner
     GetShips();
     // Get the directions and put into a spinner

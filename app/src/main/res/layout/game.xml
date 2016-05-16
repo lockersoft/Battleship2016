@@ -61,5 +61,11 @@
         android:onClick="addShipOnClick"
         android:text="Add Ship" />
 
+    <com.lockersoft.battleship2016.BoardView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/view"
+        android:layout_below="@+id/btnAddShip" />
+
 
 </RelativeLayout>
