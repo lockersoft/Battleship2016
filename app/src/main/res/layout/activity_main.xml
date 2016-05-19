@@ -89,4 +89,11 @@
         android:onClick="startExistingGameClick"
         android:layout_below="@+id/btnPreferences"
         android:layout_alignStart="@+id/btnPreferences" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_below="@+id/btnStartGame"
+        android:layout_alignParentStart="true"/>
 </RelativeLayout>

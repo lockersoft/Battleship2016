@@ -3,6 +3,7 @@ package com.lockersoft.battleship2016;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,6 +33,7 @@ public class Game extends BaseActivity {
   static Spinner rowSpinner;
   static Spinner colSpinner;
   Button btnAddShip;
+  View gameGridView;
 
   @Override
   protected void onCreate( Bundle savedInstanceState ) {
@@ -42,6 +44,7 @@ public class Game extends BaseActivity {
     rowSpinner = (Spinner) findViewById( R.id.spinnerAddRow );
     colSpinner = (Spinner) findViewById( R.id.spinnerAddCols );
     btnAddShip = (Button) findViewById( R.id.btnAddShip );
+    gameGridView = (View) findViewById( R.id.gameGridView );
 
     shipSpinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
       @Override
@@ -67,8 +70,31 @@ public class Game extends BaseActivity {
       }
     } );
 
+    gameGridView.setOnTouchListener( new View.OnTouchListener() {
+      @Override
+      public boolean onTouch( View v, MotionEvent event ) {
+//        Log.i( "BATTLESHIP", "onTouchOUT: " + event.getX() + " : " + event.getY() );
+//        Log.i( "BATTLESHIP", "onTouch: " + event.getAction() );
+        if( event.getAction() == MotionEvent.ACTION_UP ) {
+          Log.i( "BATTLESHIP", "onTouch: " + event.getX() + " : " + event.getY() );
+          findRowCol( event.getX(), event.getY() );
+          return true;    // We have handled the event.
+        }
+        return true;
+      }
+    } );
+
+
     txtGameID.setText( "ID: " + gameId );
     SetupGame();
+  }
+
+  public void findRowCol( float x, float y ) {
+    // Do some calculations here
+    int cellWidth = BoardView.cellWidth;
+    int row = (int) ( y / cellWidth );
+    int col = (int) ( x / cellWidth );
+    Log.d( "BATTLESHIP", "findRowCol: row: " + row + " col: " + col );
   }
 
   /**
@@ -123,4 +149,5 @@ public class Game extends BaseActivity {
       e.printStackTrace();
     }
   }
+
 }

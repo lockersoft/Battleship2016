@@ -17,6 +17,7 @@ public class BoardView extends ImageView {
 
   Integer screenHeight, screenWidth;
   Paint paint;
+  public static int cellWidth;
 
   public BoardView( Context context, AttributeSet attrs ) {
     super( context, attrs );
@@ -44,7 +45,7 @@ public class BoardView extends ImageView {
 
     canvas.drawLine( 2, 0, 0, screenWidth, paint );
     canvas.drawLine( screenWidth - 2, 0, screenWidth - 2, screenWidth, paint );
-    int cellWidth = screenWidth / 11;
+    cellWidth = screenWidth / 11;
     paint.setTextSize( cellWidth );
 
     for( int i = 0; i < 12; i++ ) {
