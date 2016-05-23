@@ -18,6 +18,7 @@ public class BaseActivity extends AppCompatActivity {
   static Integer gameId = -1;         // Set to negative to start
   static ServerRequest sr;
 
+  static String baseUrl = "http://battlegameserver.com";
   static String getShipsUrl = "http://battlegameserver.com/api/v1/available_ships.json";
   static String loginUrl = "http://battlegameserver.com/api/v1/login";
   static String getAllUsersUrl = "http://battlegameserver.com/api/v1/all_users.json";

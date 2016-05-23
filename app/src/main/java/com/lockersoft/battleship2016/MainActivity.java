@@ -8,8 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.android.volley.*;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -34,12 +37,14 @@ public class MainActivity extends BaseActivity implements ServerRequests {
   Button loginButton, btnStartGame, startExistingGame;
   static Button userPreferences;
   EditText edtUsername, edtPassword, edtGameID;
+  NetworkImageView imgAvatar;
 
   @Override
   protected void onCreate( Bundle savedInstanceState ) {
     super.onCreate( savedInstanceState );
     setContentView( R.layout.activity_main );
 
+    imgAvatar = (NetworkImageView) findViewById( R.id.imgAvatar );
     loginButton = (Button) findViewById( R.id.btnLogin );
     btnStartGame = (Button) findViewById( R.id.btnStartGame );
     startExistingGame = (Button) findViewById( R.id.btnStartExisting );
@@ -56,6 +61,7 @@ public class MainActivity extends BaseActivity implements ServerRequests {
     // VOLLEY
     RequestQueue queue = Volley.newRequestQueue( this );
     sr = new ServerRequest( this, "LOGIN", username, password, loginUrl, queue );
+
 
     //  sr.setCommand( "GetUsers" );
     //   sr.setUrl( getAllUsersUrl );
@@ -107,11 +113,13 @@ public class MainActivity extends BaseActivity implements ServerRequests {
       user.setFirst_name( jsonObject.getString( "first_name" ) );
       user.setLast_name( jsonObject.getString( "last_name" ) );
       user.setOnline( jsonObject.getBoolean( "online" ) );
+      user.setAvatar_image( jsonObject.getString( "avatar_image" ) );
       Log.i( "BattleShip", user.toString() );
       loggedIn = true;
       userPreferences.setEnabled( true );
       startExistingGame.setEnabled( true );
       btnStartGame.setEnabled( true );
+      sr.getImage( imgAvatar, baseUrl + user.getAvatar_image() );
     } catch( JSONException e ) {
       e.printStackTrace();
     }

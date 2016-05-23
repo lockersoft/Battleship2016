@@ -1,9 +1,12 @@
 package com.lockersoft.battleship2016;
 
+import android.content.Context;
 import android.util.Base64;
 import android.util.Log;
 
 import com.android.volley.*;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 
 import java.util.HashMap;
@@ -27,6 +30,12 @@ public class ServerRequest {
     command = _command;
     queue = _queue;
     listener = _listener;
+  }
+
+  public void getImage( NetworkImageView imgView, String url ) {
+    ImageLoader mImageLoader = new ImageLoader( queue, new LruBitmapCache(
+        LruBitmapCache.getCacheSize( (Context) listener ) ) );
+    imgView.setImageUrl( url, mImageLoader );
   }
 
   public void makeRequest( final String _command ) {
