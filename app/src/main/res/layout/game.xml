@@ -38,7 +38,9 @@
         android:layout_below="@+id/textView6"
         android:layout_toEndOf="@+id/spinnerAddShips"
         android:entries="@array/rows"
-        android:spinnerMode="dropdown" />
+        android:spinnerMode="dropdown"
+        android:background="#799ce6"
+        />
 
     <Spinner
         android:id="@+id/spinnerAddCols"
@@ -49,7 +51,9 @@
         android:layout_toEndOf="@+id/spinnerAddShips"
         android:entries="@array/columns"
         android:focusable="false"
-        android:spinnerMode="dropdown" />
+        android:spinnerMode="dropdown"
+        android:background="#799ce6"
+        />
 
     <Button
         android:id="@+id/btnAddShip"

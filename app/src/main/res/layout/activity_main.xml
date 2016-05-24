@@ -1,109 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        tools:context="com.lockersoft.battleship2016.MainActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.lockersoft.battleship2016.MainActivity"
+    >
 
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:id="@+id/btnLogin"
-            android:layout_below="@+id/edtPassword" android:layout_alignParentEnd="true" android:onClick="clickLogin"/>
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:ems="10"
-            android:id="@+id/edtUsername" android:layout_alignParentTop="true" android:layout_alignEnd="@+id/btnLogin"
-            android:text="dave.jones@scc.spokane.edu"/>
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:id="@+id/edtPassword" android:layout_below="@+id/edtUsername"
-            android:layout_alignEnd="@+id/btnLogin"
-            android:text="dljones42"/>
+  <Button
+      android:id="@+id/btnLogin"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_below="@+id/edtPassword"
+      android:onClick="clickLogin"
+      android:text="Login"
+      />
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Username"
-            android:id="@+id/textView" android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/edtUsername"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Password"
-            android:id="@+id/textView2" android:layout_below="@+id/edtUsername"
-            android:layout_toStartOf="@+id/edtUsername"/>
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="User Preferences"
-            android:id="@+id/btnPreferences"
-        android:onClick="gotoPreferences"
-        android:layout_below="@+id/edtPassword"
-        android:layout_toStartOf="@+id/edtPassword" />
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Game"
-            android:id="@+id/btnStartGame"
-        android:onClick="startGameClick"
-        android:layout_below="@+id/btnPreferences"
-        android:layout_alignStart="@+id/btnPreferences"
-        android:layout_marginTop="64dp" />
+  <EditText
+      android:id="@+id/edtUsername"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignEnd="@+id/btnLogin"
+      android:layout_alignParentTop="true"
+      android:ems="10"
+      android:inputType="textEmailAddress"
+      android:text="dave.jones@scc.spokane.edu"
+      />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Game ID:"
-        android:id="@+id/textView7"
-        android:layout_alignBottom="@+id/btnStartExisting"
-        android:layout_centerHorizontal="true" />
+  <EditText
+      android:id="@+id/edtPassword"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignEnd="@+id/btnLogin"
+      android:layout_below="@+id/edtUsername"
+      android:ems="10"
+      android:inputType="textPassword"
+      android:text="dljones42"
+      />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/edtGameID"
-        android:layout_alignTop="@+id/textView7"
-        android:layout_toEndOf="@+id/textView7" />
+  <TextView
+      android:id="@+id/textView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_toStartOf="@+id/edtUsername"
+      android:text="Username"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start Existing"
-        android:id="@+id/btnStartExisting"
-        android:onClick="startExistingGameClick"
-        android:layout_below="@+id/btnPreferences"
-        android:layout_alignStart="@+id/btnPreferences" />
+  <TextView
+      android:id="@+id/textView2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/edtUsername"
+      android:layout_toStartOf="@+id/edtUsername"
+      android:text="Password"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      />
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_alignEnd="@+id/btnLogin"
-        android:layout_marginTop="55dp"
-        android:layout_below="@+id/btnStartGame"/>
+  <Button
+      android:id="@+id/btnPreferences"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/edtPassword"
+      android:layout_toStartOf="@+id/edtPassword"
+      android:onClick="gotoPreferences"
+      android:text="User Preferences"
+      />
 
-    <com.android.volley.toolbox.NetworkImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgAvatar"
-        android:layout_below="@+id/btnStartGame"
-        android:layout_alignParentStart="true"/>
+  <Button
+      android:id="@+id/btnStartGame"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignStart="@+id/btnPreferences"
+      android:layout_below="@+id/btnPreferences"
+      android:layout_marginTop="64dp"
+      android:onClick="startGameClick"
+      android:text="New Game"
+      />
+
+  <TextView
+      android:id="@+id/textView7"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@+id/btnStartExisting"
+      android:layout_centerHorizontal="true"
+      android:text="Game ID:"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      />
+
+  <EditText
+      android:id="@+id/edtGameID"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignTop="@+id/textView7"
+      android:layout_toEndOf="@+id/textView7"
+      android:ems="10"
+      android:inputType="number"
+      />
+
+  <Button
+      android:id="@+id/btnStartExisting"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignStart="@+id/btnPreferences"
+      android:layout_below="@+id/btnPreferences"
+      android:onClick="startExistingGameClick"
+      android:text="Start Existing"
+      />
+
+  <ListView
+      android:id="@+id/listView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignEnd="@+id/btnLogin"
+      android:layout_below="@+id/btnStartGame"
+      android:layout_marginTop="55dp"
+      android:choiceMode="singleChoice"
+      android:divider="#eb3030"
+      />
+
+  <com.android.volley.toolbox.NetworkImageView
+      android:id="@+id/imgAvatar"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_below="@+id/btnStartGame"
+      />
+
+  <Button
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Get All Users"
+      android:id="@+id/btnGetAllUsers"
+      android:layout_below="@+id/edtGameID"
+      android:layout_alignEnd="@+id/edtPassword"
+      android:onClick="getAllUsersOnClick"
+      />
 
 </RelativeLayout>
