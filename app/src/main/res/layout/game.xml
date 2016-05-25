@@ -68,8 +68,45 @@
     <com.lockersoft.battleship2016.BoardView
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:id="@+id/gameGridView"
+        android:id="@+id/defensiveGameGridView"
         android:layout_below="@+id/btnAddShip" />
 
+    <com.lockersoft.battleship2016.ComputerBoardView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/offensiveGameGridView"
+        android:layout_below="@+id/btnAddShip"
+        android:visibility="invisible"
+        />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/offensiveGameGridView"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/btnAddShip"
+        android:layout_toStartOf="@+id/btnAddShip"
+        android:onClick="switchBoardsOnClick"
+        >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Defense Board"
+            android:id="@+id/radioDefense"
+            android:checked="true"
+            android:onClick="switchBoardsOnClick"
+            />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Offense Board"
+            android:id="@+id/radioOffense"
+            android:checked="false"
+            android:onClick="switchBoardsOnClick"
+            />
+
+    </RadioGroup>
 
 </RelativeLayout>

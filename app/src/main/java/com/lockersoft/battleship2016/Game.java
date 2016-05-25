@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -17,7 +18,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.SocketHandler;
 
 /**
  * Project: Battleship2016
@@ -33,7 +33,9 @@ public class Game extends BaseActivity {
   static Spinner rowSpinner;
   static Spinner colSpinner;
   Button btnAddShip;
-  View gameGridView;
+  View defenseGameGridView;
+  View offenseGameGridView;
+  RadioButton defenseBoard, offenseBoard;
 
   @Override
   protected void onCreate( Bundle savedInstanceState ) {
@@ -44,12 +46,15 @@ public class Game extends BaseActivity {
     rowSpinner = (Spinner) findViewById( R.id.spinnerAddRow );
     colSpinner = (Spinner) findViewById( R.id.spinnerAddCols );
     btnAddShip = (Button) findViewById( R.id.btnAddShip );
-    gameGridView = (View) findViewById( R.id.gameGridView );
+    defenseGameGridView = (View) findViewById( R.id.defensiveGameGridView );
+    offenseGameGridView = (View) findViewById( R.id.offensiveGameGridView );
+    defenseBoard = (RadioButton) findViewById( R.id.radioDefense );
+    offenseBoard = (RadioButton) findViewById( R.id.radioOffense );
 
     shipSpinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected( AdapterView<?> parent, View view, int position, long id ) {
-        Log.i( "BATTLESHIP", shipSpinner.getSelectedItem().toString() );
+        Log.i( TAG, shipSpinner.getSelectedItem().toString() );
       }
 
       @Override
@@ -61,7 +66,7 @@ public class Game extends BaseActivity {
     rowSpinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected( AdapterView<?> parent, View view, int position, long id ) {
-        Log.i( "BATTLESHIP", rowSpinner.getSelectedItem().toString() );
+        Log.i( TAG, rowSpinner.getSelectedItem().toString() );
       }
 
       @Override
@@ -70,13 +75,13 @@ public class Game extends BaseActivity {
       }
     } );
 
-    gameGridView.setOnTouchListener( new View.OnTouchListener() {
+    defenseGameGridView.setOnTouchListener( new View.OnTouchListener() {
       @Override
       public boolean onTouch( View v, MotionEvent event ) {
-//        Log.i( "BATTLESHIP", "onTouchOUT: " + event.getX() + " : " + event.getY() );
-//        Log.i( "BATTLESHIP", "onTouch: " + event.getAction() );
+//        Log.i( TAG, "onTouchOUT: " + event.getX() + " : " + event.getY() );
+//        Log.i( TAG, "onTouch: " + event.getAction() );
         if( event.getAction() == MotionEvent.ACTION_UP ) {
-          Log.i( "BATTLESHIP", "onTouch: " + event.getX() + " : " + event.getY() );
+          Log.i( TAG, "onTouch: " + event.getX() + " : " + event.getY() );
           findRowCol( event.getX(), event.getY() );
           return true;    // We have handled the event.
         }
@@ -94,7 +99,7 @@ public class Game extends BaseActivity {
     int cellWidth = BoardView.cellWidth;
     int row = (int) ( y / cellWidth );
     int col = (int) ( x / cellWidth );
-    Log.d( "BATTLESHIP", "findRowCol: row: " + row + " col: " + col );
+    Log.d( TAG, "findRowCol: row: " + row + " col: " + col );
   }
 
   /**
@@ -108,7 +113,7 @@ public class Game extends BaseActivity {
 
     // api/v1/game/:id/add_ship/:ship/:row/:col/:direction.json
     String addShip = addShipUrl + "game/" + gameId + "/add_ship/" + shipName + "/" + row + "/" + col + "/" + direction + ".json";
-    Log.i( "BATTLESHIP", addShip );
+    Log.i( TAG, addShip );
 //    sr.setUrl( addShip );
 //    sr.makeRequest( "ADDSHIP" );
   }
@@ -120,20 +125,30 @@ public class Game extends BaseActivity {
     // Get the Locations and put into 2 spinners   A,B,C   1,2,3
   }
 
+  public void switchBoardsOnClick( View v ){
+    if( defenseBoard.isChecked() ){
+      offenseGameGridView.setVisibility( View.INVISIBLE );
+      defenseGameGridView.setVisibility( View.VISIBLE );
+    } else {
+      offenseGameGridView.setVisibility( View.VISIBLE );
+      defenseGameGridView.setVisibility( View.INVISIBLE );
+    }
+  }
+
   public void GetShips() {
     sr.setUrl( getShipsUrl );
     sr.makeRequest( "GETSHIPS" );
   }
 
   public static void processGetShips( Context context, String response ) {
-    Log.i( "BATTLESHIP", response );
+    Log.i( TAG, response );
     try {
       JSONObject ships = new JSONObject( response );
       Iterator iter = ships.keys();
       while( iter.hasNext() ) {
         String key = (String) iter.next();
         Integer value = ships.getInt( key );
-        Log.i( "BATTLESHIP", key + ":" + value );
+        Log.i( TAG, key + ":" + value );
         shipsMap.put( key, value );
         int size = shipsMap.keySet().size();
         shipsArray = new String[ size ];
@@ -143,7 +158,6 @@ public class Game extends BaseActivity {
         shipsSpinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         shipSpinner.setAdapter( shipsSpinnerArrayAdapter );
 //        shipSpinner.setSelection(1, true);
-
       }
     } catch( JSONException e ) {
       e.printStackTrace();

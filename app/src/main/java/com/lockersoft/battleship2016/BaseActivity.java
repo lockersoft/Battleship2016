@@ -13,6 +13,9 @@ import android.util.Log;
 
 
 public class BaseActivity extends AppCompatActivity {
+
+  static final String TAG = "BATTLESHIP";
+
   static User user;
   static Boolean loggedIn = false;
   static Integer gameId = -1;         // Set to negative to start

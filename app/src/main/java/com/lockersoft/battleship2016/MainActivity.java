@@ -169,7 +169,7 @@ public class MainActivity extends BaseActivity implements ServerRequests {
       user.setLast_name( jsonObject.getString( "last_name" ) );
       user.setOnline( jsonObject.getBoolean( "online" ) );
       user.setAvatar_image( jsonObject.getString( "avatar_image" ) );
-      Log.i( "BattleShip", user.toString() );
+      Log.i( TAG, user.toString() );
       loggedIn = true;
       userPreferences.setEnabled( true );
       startExistingGame.setEnabled( true );
@@ -188,26 +188,26 @@ public class MainActivity extends BaseActivity implements ServerRequests {
   public void ProcessResponse( String command, String response ) {
     switch( command ) {
       case "LOGIN":
-        Log.i( "BattleShip", "LOGIN --- " + response );
+        Log.i( TAG, "LOGIN --- " + response );
         processLogin( response );
         break;
 
       case "GETALLUSERS":
         processGetAllUsers( response );
-        Log.i( "BattleShip", "GETALLUSERS --- " + response );
+        Log.i( TAG, "GETALLUSERS --- " + response );
         break;
 
       case "GETUSERS":
-        Log.i( "BattleShip", "GETUSERS --- " + response );
+        Log.i( TAG, "GETUSERS --- " + response );
         break;
 
       case "STARTGAME":
-        Log.i( "BattleShip", "STARTGAME --- " + response );
+        Log.i( TAG, "STARTGAME --- " + response );
         processStartGame( response );
         break;
 
       case "GETSHIPS":
-        Log.i( "BattleShip", "GETSHIPS --- " + response );
+        Log.i( TAG, "GETSHIPS --- " + response );
         Game.processGetShips( getApplicationContext(), response );
         break;
 
